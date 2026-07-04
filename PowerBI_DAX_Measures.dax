@@ -1,0 +1,23 @@
+-- Power BI measures | Table: banklens_powerbi_ready
+Total Accounts = DISTINCTCOUNT(banklens_powerbi_ready[client_id])
+
+Baseline Default Rate % =
+DIVIDE(SUM(banklens_powerbi_ready[default_flag]), [Total Accounts])
+
+Total EAD (NTD) = SUM(banklens_powerbi_ready[ead_ntd])
+
+Total Expected Loss (NTD) = SUM(banklens_powerbi_ready[expected_loss_ntd])
+
+Active Portfolio Bad Rate % =
+VAR ActiveRows = FILTER(banklens_powerbi_ready, banklens_powerbi_ready[probability_of_default_xgb_oof] < 0.28)
+RETURN DIVIDE(SUMX(ActiveRows, banklens_powerbi_ready[default_flag]), COUNTROWS(ActiveRows))
+
+EL Routed to Policy (NTD) =
+CALCULATE([Total Expected Loss (NTD)], banklens_powerbi_ready[probability_of_default_xgb_oof] >= 0.28)
+
+EL Routed to Policy % = DIVIDE([EL Routed to Policy (NTD)], [Total Expected Loss (NTD)])
+
+Average XGBoost PD % = AVERAGE(banklens_powerbi_ready[probability_of_default_xgb_oof])
+
+Accounts Requiring Review =
+CALCULATE([Total Accounts], banklens_powerbi_ready[policy_action] = "REVIEW / RESTRUCTURE")

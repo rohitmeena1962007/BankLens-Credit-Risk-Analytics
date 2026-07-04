@@ -1,0 +1,75 @@
+{
+  "dataset": "UCI Default of Credit Card Clients",
+  "accounts": 30000,
+  "features_in_source": 25,
+  "defaults": 6636,
+  "baseline_default_rate_pct": 22.12,
+  "train_accounts": 24000,
+  "test_accounts": 6000,
+  "holdout_auc_xgboost": 0.7829685388217617,
+  "holdout_auc_logistic_scorecard": 0.709913174675794,
+  "oof_auc_xgboost": 0.7864844276223272,
+  "oof_auc_logistic_scorecard": 0.7230946451003842,
+  "holdout_precision_xgb_at_0_28": 0.5359820089955023,
+  "holdout_recall_xgb_at_0_28": 0.5388093443858327,
+  "top_shap_features": [
+    {
+      "feature": "PAY_0",
+      "mean_abs_shap_log_odds": 0.5178182125091553
+    },
+    {
+      "feature": "BILL_AMT1",
+      "mean_abs_shap_log_odds": 0.1305086463689804
+    },
+    {
+      "feature": "LIMIT_BAL",
+      "mean_abs_shap_log_odds": 0.1276862770318985
+    },
+    {
+      "feature": "credit_utilization_ratio",
+      "mean_abs_shap_log_odds": 0.1242222785949707
+    },
+    {
+      "feature": "avg_6m_pay_amt",
+      "mean_abs_shap_log_odds": 0.07422525435686111
+    },
+    {
+      "feature": "PAY_3",
+      "mean_abs_shap_log_odds": 0.0741715356707573
+    },
+    {
+      "feature": "PAY_2",
+      "mean_abs_shap_log_odds": 0.07224088907241821
+    },
+    {
+      "feature": "payment_to_bill_ratio",
+      "mean_abs_shap_log_odds": 0.06857247650623322
+    },
+    {
+      "feature": "PAY_AMT2",
+      "mean_abs_shap_log_odds": 0.06589417159557343
+    },
+    {
+      "feature": "PAY_AMT3",
+      "mean_abs_shap_log_odds": 0.06517084687948227
+    }
+  ],
+  "policy_simulation": {
+    "policy_cutoff": 0.28,
+    "policy_accounts": 6698,
+    "policy_accounts_pct": 22.326666666666668,
+    "active_accounts": 23302,
+    "active_bad_rate_pct": 12.827225130890053,
+    "intervention_cohort_bad_rate_pct": 54.4490892803822,
+    "expected_loss_total_ntd": 239793112.9757909,
+    "expected_loss_routed_ntd": 133478321.83282253,
+    "expected_loss_routed_pct": 55.66395138558391,
+    "expected_loss_remaining_active_ntd": 106314791.14296834,
+    "ead_total_ntd": 1537381257.0,
+    "lgd_assumption": 0.75
+  },
+  "amount_currency": "New Taiwan dollars (NTD)",
+  "ead_definition": "max(BILL_AMT1, 0)",
+  "el_definition": "out-of-fold PD \u00d7 EAD \u00d7 75% LGD",
+  "policy_interpretation": "Accounts at or above cutoff are routed to review/restructure; EL routed is modeled exposure, not guaranteed loss savings."
+}
